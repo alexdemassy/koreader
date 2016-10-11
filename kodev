@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 CURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -78,7 +78,7 @@ ${SUPPORTED_TARGETS}"
         kindle-legacy)
             make TARGET=kindle-legacy; assert_ret_zero $? ;;
         android)
-            [[ -n ${NDK+x} ]] || export NDK="${CURDIR}/base/toolchain/android-ndk-r12b"
+            [[ -v NDK ]] || export NDK="${CURDIR}/base/toolchain/android-ndk-r12b"
             [ -e ${CURDIR}/base/toolchain/android-toolchain/bin/arm-linux-androideabi-gcc ] || { \
                 { [ -e ${NDK} ] || make -C ${CURDIR}/base/toolchain android-ndk; }; \
                 make android-toolchain; assert_ret_zero $?; \
